@@ -1,0 +1,17 @@
+שכבת Data (גישה לנתונים) - DentalClinic.Data
+=============================================
+
+מה השכבה:
+השכבה שמדברת עם בסיס הנתונים PostgreSQL באמצעות EF Core (Code-First).
+מכילה את AppDbContext, הגדרות Fluent API (תיקיית Configurations), ה-Repositories, ה-UnitOfWork,
+ה-Migrations ואת DbInitializer שמריץ migrations ו-Seed Data בעליית השרת.
+
+בין אילו שכבות היא מתווכת:
+מתווכת בין בסיס הנתונים לבין שכבת ה-Service. מפנה רק ל-Core ומממשת את ממשקי ה-Repositories שלה.
+שכבת ה-Service לא מכירה את EF Core - היא עובדת רק מול הממשקים. ה-API מכיר את Data רק לצורך רישום ב-Program.cs.
+
+תפקיד ואחריות:
+- שאילתות יעילות: AsNoTracking בקריאה בלבד, Include/ThenInclude במקום N+1, דפדוף אמיתי עם Skip/Take בבסיס הנתונים.
+- הגדרת קשרים: אחד-לרבים (רופא/מטופל - תורים) ורבים-לרבים (רופא - תחומי התמחות).
+- Concurrency Token על הרופא (Version), והחלפתו האוטומטית בדריסת SaveChangesAsync.
+- תרגום DbUpdateConcurrencyException לחריגה של Core (ConcurrencyConflictException), כך שהשכבות שמעל לא תלויות ב-EF.

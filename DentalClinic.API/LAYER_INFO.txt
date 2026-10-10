@@ -1,0 +1,16 @@
+שכבת API (שכבת התצוגה/הכניסה) - DentalClinic.API
+==================================================
+
+מה השכבה:
+פרויקט ה-ASP.NET Core Web API - נקודת הכניסה והפרויקט שמריצים. מכילה את ה-Controllers, ה-Middleware
+(טיפול גלובלי בשגיאות ו-CorrelationId), ממירי JSON, Program.cs, קובצי הקונפיגורציה ו-nlog.config.
+
+בין אילו שכבות היא מתווכת:
+מתווכת בין העולם החיצון (לקוח React, Swagger) לבין שכבת ה-Service. מפנה ל-Service ול-Core,
+ומכירה את Data רק כדי לרשום את ה-DbContext וה-Repositories ב-Program.cs. Controller לא מזריק DbContext.
+
+תפקיד ואחריות:
+- קבלת בקשות HTTP לפי REST, Model Binding ([FromRoute], [FromQuery], [FromBody]) ובדיקת ModelState.
+- אימות זהות (JWT) והרשאות לפי תפקיד ([Authorize], Roles).
+- החזרת סטטוסים נכונים: 200, 201 עם Location, 204, 400, 401, 403, 404, 409.
+- הרכבת ה-Pipeline, ה-Dependency Injection, Swagger, CORS, Health Check והלוגים (NLog).

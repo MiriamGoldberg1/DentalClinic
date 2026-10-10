@@ -1,0 +1,17 @@
+פרויקט הבדיקות - DentalClinic.Tests
+====================================
+
+מה הפרויקט:
+בדיקות יחידה ב-xUnit עם Moq, ובדיקת Concurrency מול בסיס נתונים אמיתי (SQLite בזיכרון).
+
+בין אילו שכבות הוא מתווך:
+אינו חלק מזרימת הריצה. מפנה ל-Core, ל-Service ול-Data כדי לבדוק אותן מבחוץ.
+
+תפקיד ואחריות:
+- AppointmentServiceTests: בדיקת הלוגיקה של המשאב המוגבל עם Repositories מדומים -
+  המקרה התקין (תור נקבע), המקרה שנדחה (שעה תפוסה => 409), ניסיון חוזר אחרי התנגשות, וכללי שעות הפעילות.
+- DoctorScheduleConcurrencyTests: ההוכחה - שני DbContext נפרדים קוראים את אותו רופא, שניהם משנים,
+  הראשון שומר בהצלחה והשני מקבל DbUpdateConcurrencyException.
+- PatientServiceTests ו-AgeCalculatorTests: הרשאות, History וחישוב גיל.
+
+
