@@ -190,6 +190,7 @@ try
         options.KnownProxies.Clear();
     });
 
+
     var app = builder.Build();
 
     // ---------- הקמת בסיס הנתונים: migrations + seed, ללא התערבות ידנית ----------
